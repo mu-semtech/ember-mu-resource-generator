@@ -1,0 +1,46 @@
+<table>
+  <th><td>Name</td><td>Value</td></th>
+  <%=
+    // this currently only understands regular inputs
+    attributes.map( function(attribute) {
+      return "<tr><td>" + attribute.name + "</td><td>{{input value=model." + attribute.name +"}}</td></tr>";
+    }).join("\n  ")
+  %>
+</table> 
+
+Belongs to:
+<!-- you can't add these yet -->
+<ul>
+  <%=
+    belongsToRelationships.map( function(relationship) {
+      return "" +
+        "  <li>\n" +
+        "    {{#if model." + relationship.itemVar + "}}\n" +
+        "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.name + "}}\n" +
+        "    {{else}}\n" +
+        "      No " + relationship.itemVar + " set\n" +
+        "    {{/if}}\n" +
+        "  </li>"
+    }).join("\n")
+  %>
+</ul>
+
+Has many:
+<!-- you can't add these yet -->
+<table>
+  <th><td>Relationship</td><td>Links</td></th>
+  <%=
+    hasManyRelationships.map( function(relationship) {
+      var childVar = relationship.childVar;
+      var kind = relationship.kind;
+      var name = relationship.name;
+      return "" +
+        "  <tr>\n" +
+        "    {{#each model." + name + " as |" + childVar + "|}}\n" +
+        "      {{link-to " + childVar + ".title \"" + kind + "\" " + childVar + "}}\n" +
+        "    {{/each}}\n" +
+        "  </tr>\n"
+    } ).join("")
+  %></table>
+
+<button {{action 'save' model}}>Save</button>
