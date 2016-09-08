@@ -1,7 +1,7 @@
 {
   "name": "ember-mu-resource-generator",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Blueprint for generating mu-resource views.",
   "directories": {
     "doc": "doc",
     "test": "tests"
