@@ -16,7 +16,7 @@ module.exports = {
   description: 'Generates a full view for a resource backed by mu-resources.',
 
   locals: function(options) {
-    console.log(options);
+    // console.log(options);
     var entityConfig = options.entity.options;
     var properties = Object.keys(entityConfig).map( function(key) {
       // name is the name of the relationship in the attributes
