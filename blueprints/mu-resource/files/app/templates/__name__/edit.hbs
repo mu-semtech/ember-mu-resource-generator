@@ -25,41 +25,5 @@
 	<div class="btn btn--submit right" {{action "save" model}}>Save changes</div>
       </div>
     </div>
-  </div>
-  
+  </div>  
 </div>
-
-Belongs to:
-<!-- you can't edit these yet -->
-<ul>
-<%=
-    belongsToRelationships.map( function(relationship) {
-      return "" +
-        "  <li>\n" +
-        "    {{#if model." + relationship.itemVar + "}}\n" +
-        "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.itemVar + "}}\n" +
-        "    {{else}}\n" +
-        "      No " + relationship.itemVar + " set\n" +
-        "    {{/if}}\n" +
-        "  </li>"
-    }).join("\n")
-  %>
-</ul>
-
-Has many:
-<!-- you can't edit these yet -->
-<table>
-  <th><td>Relationship</td><td>Links</td></th>
-  <%=
-    hasManyRelationships.map( function(relationship) {
-    var itemVar = relationship.itemVar;
-    var kind = relationship.kind;
-    var name = relationship.name;
-    return "" +
-      "  <tr>\n" +
-      "    {{#each model." + name + " as |" + itemVar + "|}}\n" +
-      "      {{link-to " + itemVar + ".title \"" + kind + "\" " + itemVar + "}}\n" +
-      "    {{/each}}\n" +
-      "  </tr>\n"
-    } ).join("")
-  %></table>
