@@ -3,7 +3,7 @@
   <div class="form">
     <%=
     attributes.map( function(attribute) {
-    return "<div class=\"row\"><div class=\"col s4\">" + attribute.name + "</div><div class=\"col s8\">{{model." + attribute.name +"}}</div></div>";
+    return "<div class=\"row\"><div class=\"col s4\">" + attribute.name + "</div><div class=\"col s8\">{{model." + attribute.itemVar +"}}</div></div>";
     }).join("\n  ")
     %>
 
@@ -21,7 +21,7 @@
     return "" +
     "  <li>\n" +
     "    {{#if model." + relationship.itemVar + "}}\n" +
-    "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.name + "}}\n" +
+    "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.itemVar + "}}\n" +
     "    {{else}}\n" +
         "      No " + relationship.itemVar + " set\n" +
     "    {{/if}}\n" +

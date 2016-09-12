@@ -3,7 +3,7 @@
   <%=
     // this currently only understands regular inputs
     attributes.map( function(attribute) {
-      return "<tr><td>" + attribute.name + "</td><td>{{input value=model." + attribute.name +"}}</td></tr>";
+      return "<tr><td>" + attribute.name + "</td><td>{{input value=model." + attribute.itemVar +"}}</td></tr>";
     }).join("\n  ")
   %>
 </table> 
@@ -16,7 +16,7 @@ Belongs to:
       return "" +
         "  <li>\n" +
         "    {{#if model." + relationship.itemVar + "}}\n" +
-        "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.name + "}}\n" +
+        "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.itemVar + "}}\n" +
         "    {{else}}\n" +
         "      No " + relationship.itemVar + " set\n" +
         "    {{/if}}\n" +

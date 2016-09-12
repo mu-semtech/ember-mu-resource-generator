@@ -13,7 +13,7 @@
       <tr>
 	<%=
 	attributes.slice(0,3).map( function(attribute) {
-	return "<td>{{" + entityVar + "." + attribute.name +"}}</td>"
+	return "<td>{{" + entityVar + "." + attribute.itemVar +"}}</td>"
 	} ).join("")
 	%>
 	<td>{{#link-to "<%= entityName %>" <%= entityVar %>}}show{{/link-to}}
