@@ -3,7 +3,7 @@
   <table>
     <tr>
       <%=
-      attributes.map( function(attribute) {
+      attributes.slice(0,3).map( function(attribute) {
       return "<th>" + attribute.name + "</th>";
       }).join("")
       %>
@@ -12,7 +12,7 @@
     {{#each model as |<%= entityVar %>|}}
       <tr>
 	<%=
-	attributes.map( function(attribute) {
+	attributes.slice(0,3).map( function(attribute) {
 	return "<td>{{" + entityVar + "." + attribute.name +"}}</td>"
 	} ).join("")
 	%>
