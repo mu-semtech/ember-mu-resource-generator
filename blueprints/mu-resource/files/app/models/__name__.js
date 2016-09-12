@@ -9,7 +9,7 @@ export default DS.Model.extend({
   <%=
     relationships.map( function(relationship) {
       if( relationship.kind == "hasMany" ){
-        return relationship.itemVar + "s: DS.hasMany(\"" + relationship.name + "\"),";
+        return relationship.itemVar + ": DS.hasMany(\"" + relationship.name + "\"),";
       } else {
         return relationship.itemVar + ": DS.belongsTo(\"" + relationship.name + "\"),";
       }
