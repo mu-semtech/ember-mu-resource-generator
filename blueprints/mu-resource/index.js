@@ -2,6 +2,7 @@ var fs          = require('fs-extra');
 var path        = require('path');
 var chalk       = require('chalk');
 var EmberRouterGenerator = require('ember-router-generator');
+var Inflector = require('ember-inflector-node-shim');
 
 /*jshint node:true*/
 var entityToVariable = function(entityName) {
@@ -45,13 +46,13 @@ module.exports = {
       return relationship.kind == "hasMany";
     } );
     
-
     return {
       attributes: attributes,
       relationships: relationships,
       belongsToRelationships: belongsToRelationships,
       hasManyRelationships: hasManyRelationships,
       entityName: options.entity.name,
+      entitiesName: Inflector.pluralize(options.entity.name),
       entityVar: entityToVariable(options.entity.name),
       entityPathVar: entityPathVariable(options.entity.name)
     };
