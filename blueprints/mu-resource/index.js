@@ -1,3 +1,8 @@
+var fs          = require('fs-extra');
+var path        = require('path');
+var chalk       = require('chalk');
+var EmberRouterGenerator = require('ember-router-generator');
+
 /*jshint node:true*/
 var entityToVariable = function(entityName) {
   var splits = entityName.split("-");
@@ -57,9 +62,60 @@ module.exports = {
     // };
 
     
+  },
+
+  afterInstall: function(options) {
+    updateRouter.call(this, 'add', options);
+  },
+
+  afterUninstall: function(options) {
+    updateRouter.call(this, 'remove', options);
   }
 
-  // afterInstall: function(options) {
-  //   // Perform extra work here.
-  // }
 };
+
+function updateRouter(action, options) {
+  var entity = options.entity;
+  var actionColorMap = {
+    add: 'green',
+    remove: 'red'
+  };
+  var color = actionColorMap[action] || 'gray';
+
+  var routes = [
+    { name: entity.name + 's', options: {} },
+    { name: entity.name + 's/new', options: {} },
+    { name: entity.name, options: { path: entity.name + 's/:id' } },
+    { name: entity.name + '/edit', options: { path: entity.name + 's/:id/edit' } }
+  ];
+  var self = this;
+  this.ui.writeLine('updating router');
+  routes.forEach(function(route) {
+    writeRoute(action, route.name, route.options, options);
+    
+    self._writeStatusToUI(chalk[color], action + ' route', route.name);
+  });
+
+}
+
+function findRouter(options) {
+  var routerPathParts = [options.project.root];
+
+  if (options.dummy && options.project.isEmberCLIAddon()) {
+    routerPathParts = routerPathParts.concat(['tests', 'dummy', 'app', 'router.js']);
+  } else {
+    routerPathParts = routerPathParts.concat(['app', 'router.js']);
+  }
+
+  return routerPathParts;
+}
+
+function writeRoute(action, name, routeOptions, options) {
+  var routerPath = path.join.apply(null, findRouter(options));
+  var source = fs.readFileSync(routerPath, 'utf-8');
+
+  var routes = new EmberRouterGenerator(source);
+  var newRoutes = routes[action](name, routeOptions);
+
+  fs.writeFileSync(routerPath, newRoutes.code());
+}
