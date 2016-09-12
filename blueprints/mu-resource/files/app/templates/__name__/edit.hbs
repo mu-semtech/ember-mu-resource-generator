@@ -3,8 +3,21 @@
   <div class="form">
     <%=
     attributes.map( function(attribute) {
-    return "<div class=\"row\"><div class=\"col s4\">" + attribute.name + "</div><div class=\"col s8\">{{input type=\"text\" value=model." + attribute.itemVar +"}}</div></div>";
+      if(attribute.kind == "language-string-set") {
+        return "<div class=\"row\"><div class=\"col s4\">" + attribute.name + "</div>"
+    + "<div class=\"col s8\">"
+    + "{{#each model." + attribute.itemVar + " as |label index|}}"
+    + "<div class=\"row\">"
+    + "<div class=\"col s8 field--location\">{{input type=\"text\" value=label.content}}</div>"
+    + "<div class=\"col s4 field--language\">{{input type=\"text\" value=label.language}}</div>"
+    + "</div>"
+    + "{{/each}}</div></div>";
+    }
+      else {
+        return "<div class=\"row\"><div class=\"col s4\">" + attribute.name + "</div><div class=\"col s8\">{{input type=\"text\" value=model." + attribute.itemVar +"}}</div></div>";
+    }
     }).join("\n  ")
+    
     %>
     
     <div class="row">
