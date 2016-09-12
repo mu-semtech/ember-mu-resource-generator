@@ -1,12 +1,20 @@
-<table>
-  <th><td>Name</td><td>Value</td></th>
-  <%=
-    // this currently only understands regular inputs
+<div class="content">
+  <h5><%= entityName %></h5>
+  <div class="form">
+    <%=
     attributes.map( function(attribute) {
-      return "<tr><td>" + attribute.name + "</td><td>{{input value=model." + attribute.name +"}}</td></tr>";
+    return "<div class=\"row\"><div class=\"col s4\">" + attribute.name + "</div><div class=\"col s8\">{{input type=\"text\" value=model." + attribute.name +"}}</div></div>";
     }).join("\n  ")
-  %>
-</table> 
+    %>
+    
+    <div class="row">
+      <div class="col s12">
+	<div class="btn btn--submit right" {{action "save" model}}>Save changes</div>
+      </div>
+    </div>
+  </div>
+  
+</div>
 
 Belongs to:
 <!-- you can't edit these yet -->
@@ -42,5 +50,3 @@ Has many:
       "  </tr>\n"
     } ).join("")
   %></table>
-
-<button {{action 'save' model}}>Save</button>

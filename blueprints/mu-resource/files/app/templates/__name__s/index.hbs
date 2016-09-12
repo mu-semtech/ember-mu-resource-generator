@@ -1,24 +1,26 @@
-<table>
-  <th>
-    <%=
-      attributes.map( function(attribute) {
-        return "<td>" + attribute.name + "</td>";
-      }).join("")
-    %>
-    <td>actions</td>
-  </th>
-  {{#each model as |<%= entityVar %>|}}
+<div class="content">
+  <h5><%= entityName %>s</h5>
+  <table>
     <tr>
       <%=
       attributes.map( function(attribute) {
-      return "<td>{{" + entityVar + "." + attribute.name +"}}</td>"
-      } ).join("")
+      return "<th>" + attribute.name + "</th>";
+      }).join("")
       %>
-      <td>{{#link-to "<%= entityName %>" <%= entityVar %>}}show{{/link-to}}
-        | {{#link-to "<%= entityName %>.edit" <%= entityVar %>}}edit{{/link-to}}
-      </td>
+      <th>actions</th>
     </tr>
-  {{/each}}
-</table>
-
-{{link-to "New" "<%= entityName %>s.new"}}
+    {{#each model as |<%= entityVar %>|}}
+      <tr>
+	<%=
+	attributes.map( function(attribute) {
+	return "<td>{{" + entityVar + "." + attribute.name +"}}</td>"
+	} ).join("")
+	%>
+	<td>{{#link-to "<%= entityName %>" <%= entityVar %>}}show{{/link-to}}
+          | {{#link-to "<%= entityName %>.edit" <%= entityVar %>}}edit{{/link-to}}
+	</td>
+      </tr>
+    {{/each}}
+  </table>
+  {{link-to "New" "<%= entityName %>s.new"}}
+</div>

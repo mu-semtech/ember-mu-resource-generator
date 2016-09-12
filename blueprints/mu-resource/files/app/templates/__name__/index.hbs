@@ -1,41 +1,49 @@
-<table>
-  <th><td>Name</td><td>Value</td></th>
-  <%=
+<div class="content">
+  <h5><%= entityName %></h5>
+  <div class="form">
+    <%=
     attributes.map( function(attribute) {
-      return "<tr><td>" + attribute.name + "</td><td>{{model." + attribute.name +"}}</td></tr>";
+    return "<div class=\"row\"><div class=\"col s4\">" + attribute.name + "</div><div class=\"col s8\">{{model." + attribute.name +"}}</div></div>";
     }).join("\n  ")
-  %>
-</table> 
+    %>
 
-Belongs to:
-<ul>
-  <%=
+    <div class="row">
+      <div class="col s12">
+	{{#link-to "<%= entityName %>.edit" model.id class="btn btn--submit right"}}edit{{/link-to}}
+      </div>
+    </div>
+  </div>
+
+  Belongs to:
+  <ul>
+    <%=
     belongsToRelationships.map( function(relationship) {
-      return "" +
-        "  <li>\n" +
-        "    {{#if model." + relationship.itemVar + "}}\n" +
-        "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.name + "}}\n" +
-        "    {{else}}\n" +
+    return "" +
+    "  <li>\n" +
+    "    {{#if model." + relationship.itemVar + "}}\n" +
+    "      {{link-to \"" + relationship.name + "\" \"" + relationship.name + "\" model." + relationship.name + "}}\n" +
+    "    {{else}}\n" +
         "      No " + relationship.itemVar + " set\n" +
-        "    {{/if}}\n" +
-        "  </li>"
+    "    {{/if}}\n" +
+    "  </li>"
     }).join("\n")
-  %>
-</ul>
+    %>
+  </ul>
 
-Has many:
-<table>
-  <th><td>Relationship</td><td>Links</td></th>
-<%=
+  Has many:
+  <table>
+    <th><td>Relationship</td><td>Links</td></th>
+    <%=
     hasManyRelationships.map( function(relationship) {
-      var itemVar = relationship.itemVar;
-      var kind = relationship.kind;
-      var name = relationship.name;
-      return "" +
-        "  <tr>\n" +
-        "    {{#each model." + name + " as |" + itemVar + "|}}\n" +
-        "      {{link-to " + itemVar + ".title \"" + kind + "\" " + itemVar + "}}\n" +
-        "    {{/each}}\n" +
-        "  </tr>\n"
+    var itemVar = relationship.itemVar;
+    var kind = relationship.kind;
+    var name = relationship.name;
+    return "" +
+    "  <tr>\n" +
+      "    {{#each model." + name + " as |" + itemVar + "|}}\n" +
+      "      {{link-to " + itemVar + ".title \"" + kind + "\" " + itemVar + "}}\n" +
+      "    {{/each}}\n" +
+      "  </tr>\n"
     } ).join("")
-  %></table>
+    %></table>
+</div>
