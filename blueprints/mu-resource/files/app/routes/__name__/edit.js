@@ -5,6 +5,10 @@ export default Ember.Route.extend({
     return this.modelFor('<%= entityName %>');
   },
   actions: {
+    cancel(model) {
+      model.rollbackAttributes();
+      this.transitionTo("<%= entityName %>", model);
+    },
     save(model) {
       var self = this;
       model.save().then( function() {
