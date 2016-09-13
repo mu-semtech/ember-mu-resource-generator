@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-mu-resource-generator'
+  name: 'ember-mu-oslo-resource-generator'
 };
