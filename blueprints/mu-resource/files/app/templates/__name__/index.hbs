@@ -26,12 +26,14 @@
       var kind = relationship.kind;
       var name = relationship.name;
       return "" +
-        "  {{#each (await model." + itemVar + ") as |resource|}}\n" +
-        "    <div class=\"row\">\n" +
-        "      <div class=\"col s12 m4\">" + name + "</div>\n" +
-        "      <div class=\"col s12 m8\">{{link-to resource.preflabel \"" + itemVarSingle + "\" resource}}</div>\n" +
+        "  <div class=\"row\">\n" +
+        "    <div class=\"col s12 m4\">" + name + "</div>\n" +
+        "    <div class=\"col s12 m8\">\n" +
+        "    {{#each (await model." + itemVar + ") as |resource|}}\n" +
+        "      <div>{{link-to resource.preflabel \"" + itemVarSingle + "\" resource}}</div>\n" +
+        "    {{/each}}\n" +
         "    </div>\n" +
-        "  {{/each}}\n"
+        "  </div>\n"
     } ).join("")
     %>
     <div class="row">
