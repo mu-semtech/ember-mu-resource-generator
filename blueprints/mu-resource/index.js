@@ -30,7 +30,7 @@ module.exports = {
       // childVar is the name of the variable which you should use
       //   if you want to name the relationship or property as a
       //   variable.
-      base = { name: key, kind: entityConfig[key], itemVar: entityToVariable(key) }
+      base = { name: key, kind: entityConfig[key], itemVar: entityToVariable(key), itemVarSingle: Inflector.singularize(entityToVariable(key)) }
       return base;
     } );
     var attributes = properties.filter( function(prop) {
