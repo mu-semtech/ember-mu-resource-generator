@@ -64,7 +64,13 @@ module.exports = {
 
     
   },
-
+  fileMapTokens: function(options) {
+			return {
+					__plural_name__: function(options) {
+							return options.locals.entitiesName
+					}
+			}
+	},
   afterInstall: function(options) {
     updateRouter.call(this, 'add', options);
   },
@@ -82,12 +88,12 @@ function updateRouter(action, options) {
     remove: 'red'
   };
   var color = actionColorMap[action] || 'gray';
-
+  var entitiesName = Inflector.pluralize(entity.name)
   var routes = [
-    { name: entity.name + 's', options: {} },
-    { name: entity.name + 's/new', options: {} },
-    { name: entity.name, options: { path: entity.name + 's/:id' } },
-    { name: entity.name + '/edit', options: { path: entity.name + 's/:id/edit' } }
+    { name: entitiesName, options: {} },
+    { name: entitiesName + '/new', options: {} },
+    { name: entitiesName + '/show', options: { path: entitiesName + '/:id' } },
+    { name: entitiesName + '/edit', options: { path: entitiesName + '/:id/edit' } }
   ];
   var self = this;
   this.ui.writeLine('updating router');
