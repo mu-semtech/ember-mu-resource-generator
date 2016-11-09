@@ -1,26 +1,4 @@
 <div class="content">
   <h5><%= entitiesName %></h5>
-  <table>
-    <tr>
-      <%=
-      attributes.slice(0,3).map( function(attribute) {
-      return "<th>" + attribute.name + "</th>";
-      }).join("")
-      %>
-      <th>actions</th>
-    </tr>
-    {{#each model as |<%= entityVar %>|}}
-      <tr>
-	<%=
-	attributes.slice(0,3).map( function(attribute) {
-	return "<td>{{" + entityVar + "." + attribute.itemVar +"}}</td>"
-	} ).join("")
-	%>
-	<td>{{#link-to "<%= entityName %>" <%= entityVar %>}}show{{/link-to}}
-          | {{#link-to "<%= entityName %>.edit" <%= entityVar %>}}edit{{/link-to}}
-	</td>
-      </tr>
-    {{/each}}
-  </table>
-  {{link-to "New" "<%= entityName %>s.new"}}
+  {{data-table content=model fields="<%= attributes %>" sort=sort page=page}}
 </div>

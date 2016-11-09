@@ -72,7 +72,8 @@ module.exports = {
 			}
 	},
   afterInstall: function(options) {
-    updateRouter.call(this, 'add', options);
+			updateRouter.call(this, 'add', options);
+      this.addPackageToProject('ember-data-table', '~0.2');
   },
 
   afterUninstall: function(options) {
