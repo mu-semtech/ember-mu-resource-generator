@@ -1,4 +1,4 @@
 <div class="content">
   <h5><%= entitiesName %></h5>
-  {{data-table content=model fields="<%= attributes %>" sort=sort page=page}}
+  {{data-table content=model fields="<%= attributes.map(function(a) {return a.itemVar}).join(" ") %>" sort=sort page=page}}
 </div>

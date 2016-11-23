@@ -33,7 +33,7 @@ module.exports = {
       base = { name: key, kind: entityConfig[key], itemVar: entityToVariable(key), itemVarSingle: Inflector.singularize(entityToVariable(key)) }
       return base;
     } );
-    var attributes = properties.filter( function(prop) {
+			var attributes = properties.filter( function(prop) {
       return prop.kind != "hasMany" && prop.kind != "belongsTo";
     } );
     var relationships = properties.filter( function(prop) {
@@ -73,11 +73,12 @@ module.exports = {
 	},
   afterInstall: function(options) {
 			updateRouter.call(this, 'add', options);
-      this.addPackageToProject('ember-data-table', '~0.2');
+      return this.addPackageToProject('ember-data-table', '~0.3');
+			// Ember CLI expects to resolve a promise from these hooks when running the blueprint
   },
 
   afterUninstall: function(options) {
-    updateRouter.call(this, 'remove', options);
+    return updateRouter.call(this, 'remove', options);
   }
 
 };
@@ -93,8 +94,8 @@ function updateRouter(action, options) {
   var routes = [
     { name: entitiesName, options: {} },
     { name: entitiesName + '/new', options: {} },
-    { name: entitiesName + '/show', options: { path: entitiesName + '/:id' } },
-    { name: entitiesName + '/edit', options: { path: entitiesName + '/:id/edit' } }
+    { name: entitiesName + '/show', options: { path: ':id' } },
+    { name: entitiesName + '/edit', options: { path: ':id/edit' } }
   ];
   var self = this;
   this.ui.writeLine('updating router');
