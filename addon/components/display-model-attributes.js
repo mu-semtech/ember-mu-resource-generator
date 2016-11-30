@@ -20,7 +20,7 @@ export default Ember.Component.extend({
         return fields || [];
       }
     }),
-		props: Ember.computed('parsedFields','model', 'relationShipsByName', function() {
+		props: Ember.computed('parsedFields','model', 'relationshipsByName', function() {
 				var that = this;
 				var props = Ember.Object.create();
 				var transformedAttributes = this.get('transformedAttributes');
@@ -36,7 +36,7 @@ export default Ember.Component.extend({
 				});
 				return props;   
 		}),
-		rels: Ember.computed('parsedFields','model', 'relationShipsByName', function() {
+		rels: Ember.computed('parsedFields','model', 'relationshipsByName', function() {
 				var that = this;
 				var props = Ember.Object.create();
 				var relationships = this.get('relationshipsByName');
