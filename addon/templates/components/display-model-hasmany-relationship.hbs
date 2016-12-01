@@ -1,4 +1,7 @@
+{{#if (is-pending model)}}
+  loading...
+{{else}}
 {{#each (await model) as |resource|}}
-  <li>{{#link-to itemRoute resource class="link--icon--caret"}}{{resource.id}}{{/link-to}}</li>
+  {{#link-to itemRoute resource class="link--icon--caret"}}{{resource.id}}{{/link-to}}
 {{/each}}
-
+{{/if}}
