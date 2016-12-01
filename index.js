@@ -2,5 +2,8 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-mu-oslo-resource-generator'
+		name: 'ember-mu-resource-generator',
+		isDevelopingAddon: function() {
+				return true;
+		}
 };
