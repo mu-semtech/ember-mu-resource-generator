@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 				Ember.get(this.get('klassOfModel'),'fields').forEach(
 						function (val,k) {
 								keys.addObject(k);
-						});				
+						});
 				return keys;
 		}),
 		parsedFields: Ember.computed('fields', function() {
@@ -27,14 +27,14 @@ export default Ember.Component.extend({
 				var relationships = this.get('relationshipsByName');
 				this.get('parsedFields').forEach(function(a) {
 						var attributeName = a.dasherize().split('-').join(" ");
-						if (!relationships.get(a)) {							
+						if (!relationships.get(a)) {
 								props.set(attributeName, {
 										valueComponent: "gr-" + transformedAttributes.get(a),
 										content: that.get("model." + a)
 								});
 						}
 				});
-				return props;   
+				return props;
 		}),
 		rels: Ember.computed('parsedFields','model', 'relationshipsByName', function() {
 				var that = this;
@@ -47,14 +47,12 @@ export default Ember.Component.extend({
 						if (rel) {
 								props.set(attributeName, {
 										kind: rel.kind,
-										type: rel.type,
 										itemRoute: inflector.pluralize(rel.type) + ".show",
 									  promise: that.get("model."+a)
 								});
 						}
 				});
-				console.log(props);
-				return props;   
+				return props;
 		}),
 		klassOfModel: Ember.computed('model', function () {
   		return this.get('model').constructor;
@@ -77,5 +75,5 @@ export default Ember.Component.extend({
 						return Ember.get(this.get('klassOfModel'),'transformedAttributes');
 				}
 		})
-		
+
 });
