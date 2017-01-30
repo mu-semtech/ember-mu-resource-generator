@@ -1,4 +1,4 @@
 <div class="content">
   <h2 class="h2"><%= entitiesName %></h2>
-  {{data-table content=model fields="<%= attributes.map(function(a) {return a.itemVar}).join(" ") %>" sort=sort page=page linkedRoute='<%= entityName %>.show'}}
+  {{data-table content=model fields="<%= attributes.map(function(a) {return a.itemVar}).join(" ") %>" sort=sort page=page link='<%= entitiesName %>.show'}}
 </div>
