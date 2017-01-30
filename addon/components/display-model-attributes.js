@@ -2,6 +2,7 @@ import Ember from 'ember';
 import layout from '../templates/components/display-model-attributes';
 
 export default Ember.Component.extend({
+   routing: Ember.inject.service('-routing'),
 		layout: layout,
 		classNames: ["properties"],
 		fields: Ember.computed('model', 'klassOfModel', function () {
@@ -74,6 +75,14 @@ export default Ember.Component.extend({
 				else {
 						return Ember.get(this.get('klassOfModel'),'transformedAttributes');
 				}
-		})
+		}),
+		actions: {
+				linkToRelation: function(relation) {
+						var inflector = new Ember.Inflector(Ember.Inflector.defaultRules);
+						var relationRoute = inflector.pluralize(relation);
+						var filterKey= "filter[" + this.type + "][id]";
+						this.get('routing').transitionTo(relationRoute, [] , { filterKey: this.id });
+				}
+		}
 
 });

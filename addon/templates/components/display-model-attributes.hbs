@@ -7,10 +7,11 @@
 	{{/if}}
 	{{/each-in}}
  {{#each-in rels as |name value|}}
- {{#if value}}
-    <dt class="properties__label">{{name}}</dt>
-    {{display-model-relationship model=value.promise kind=value.kind itemRoute=value.itemRoute}}
-	{{/if}}
+   {{#if value}}
+     <dt class="properties__label">{{name}}</dt>
+     {{display-model-relationship model=value.promise kind=value.kind itemRoute=value.itemRoute}}
+  	 <button {{action "linkToRelation" name}}>more&gt; &gt;</button>
+	  {{/if}}
 	{{/each-in}}
 
 </dl>
