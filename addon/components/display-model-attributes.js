@@ -2,9 +2,9 @@ import Ember from 'ember';
 import layout from '../templates/components/display-model-attributes';
 
 export default Ember.Component.extend({
-   routing: Ember.inject.service('-routing'),
 		layout: layout,
 		classNames: ["properties"],
+		// a list of all attributes in the model, you can override this with a specific list
 		fields: Ember.computed('model', 'klassOfModel', function () {
 				var keys = [];
 				Ember.get(this.get('klassOfModel'),'fields').forEach(
@@ -13,6 +13,7 @@ export default Ember.Component.extend({
 						});
 				return keys;
 		}),
+		// a list of all attributes in the model, allows for 'fields' to be a string
 		parsedFields: Ember.computed('fields', function() {
       const fields = this.get('fields');
       if( Ember.typeOf( fields ) === 'string' ) {
@@ -21,7 +22,19 @@ export default Ember.Component.extend({
         return fields || [];
       }
     }),
-		props: Ember.computed('parsedFields','model', 'relationshipsByName', function() {
+
+		/*
+		 * returns a hash describing the requested attributes of the provided model
+     * e.g.
+		 * {
+		 *   title:
+		 *     {
+		 *       valueComponent: "gr-string", // component used for display
+		 *       content: "a title",          // value of the attribute
+		 *     },
+		 * }
+		 */
+	  props: Ember.computed('parsedFields','model', 'relationshipsByName', function() {
 				var that = this;
 				var props = Ember.Object.create();
 				var transformedAttributes = this.get('transformedAttributes');
@@ -37,11 +50,29 @@ export default Ember.Component.extend({
 				});
 				return props;
 		}),
+
+		/*
+		 * returns a hash describing the relationships linked to the provided model
+     * e.g
+     * {
+     *   relationShipName: {
+     *     kind: "has-many",                 // kind of the relationship (hasmany or belongsto)
+		 *		 itemRoute: "addresses.show",      // route to a specific item in the relationship
+		 *     itemListRoute: "addresses.index", // route to a list of items in the relationship
+		 *     itemListFilter:                   // filter applied to the above list
+		 *                     { filter[postcode][id]: 'c6633b87-e4ba-4f73-b116-020ee2ca912c' }
+     *   },
+		 *   ...
+		 *}
+		 */
 		rels: Ember.computed('parsedFields','model', 'relationshipsByName', function() {
 				var that = this;
 				var props = Ember.Object.create();
 				var relationships = this.get('relationshipsByName');
 				var inflector = new Ember.Inflector(Ember.Inflector.defaultRules);
+				var filterKey = this.get('model.constructor.modelName');
+				var itemListFilter = {};
+				itemListFilter[filterKey] = this.get('model.id');
 				this.get('parsedFields').forEach(function(a) {
 						var attributeName = a.dasherize().split('-').join(" ");
 						var rel = relationships.get(a);
@@ -49,12 +80,17 @@ export default Ember.Component.extend({
 								props.set(attributeName, {
 										kind: rel.kind,
 										itemRoute: inflector.pluralize(rel.type) + ".show",
+										itemListRoute: inflector.pluralize(rel.type) + ".index",
+										itemListFilter: itemListFilter,
 									  promise: that.get("model."+a)
 								});
 						}
 				});
 				return props;
 		}),
+
+		/* supporting functions */
+		
 		klassOfModel: Ember.computed('model', function () {
   		return this.get('model').constructor;
 		}),
@@ -76,13 +112,4 @@ export default Ember.Component.extend({
 						return Ember.get(this.get('klassOfModel'),'transformedAttributes');
 				}
 		}),
-		actions: {
-				linkToRelation: function(relation) {
-						var inflector = new Ember.Inflector(Ember.Inflector.defaultRules);
-						var relationRoute = inflector.pluralize(relation);
-						var filterKey= "filter[" + this.type + "][id]";
-						this.get('routing').transitionTo(relationRoute, [] , { filterKey: this.id });
-				}
-		}
-
 });

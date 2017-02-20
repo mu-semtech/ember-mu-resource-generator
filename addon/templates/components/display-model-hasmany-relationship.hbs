@@ -4,4 +4,7 @@
 {{#each (await model) as |resource|}}
   {{#link-to itemRoute resource class="link--icon--caret"}}{{resource.id}}{{/link-to}}
 {{/each}}
+	{{#if model}}
+	 	<a href="" {{action 'filterRelation'}}>&gt; {{t 'more'}}</a>
+	{{/if}}
 {{/if}}

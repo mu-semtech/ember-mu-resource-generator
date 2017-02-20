@@ -2,16 +2,14 @@
 <dl>
  {{#each-in props as |name value|}}
  {{#if value}}
-    <dt class="properties__label">{{name}}</dt>
+    <dt class="properties__label">{{t name}}</dt>
 		<dd class="properties__data">{{component value.valueComponent content=value.content}}</dd>
 	{{/if}}
 	{{/each-in}}
  {{#each-in rels as |name value|}}
    {{#if value}}
-     <dt class="properties__label">{{name}}</dt>
-     {{display-model-relationship model=value.promise kind=value.kind itemRoute=value.itemRoute}}
-  	 <button {{action "linkToRelation" name}}>more&gt; &gt;</button>
-	  {{/if}}
+     <dt class="properties__label">{{t name}}</dt>
+		{{display-model-relationship model=value.promise kind=value.kind itemRoute=value.itemRoute relationRoute=value.itemListRoute relationFilter=value.itemListFilter}}
+{{/if}}
 	{{/each-in}}
-
 </dl>
