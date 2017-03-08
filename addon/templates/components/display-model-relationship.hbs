@@ -1,5 +1,5 @@
 {{#if isBelongsTo}}
-  {{display-model-belongsto-relationship model=model itemRoute=itemRoute}}
+  {{display-model-belongsto-relationship model=model itemRoute=itemRoute configuredLabel=configuredLabel}}
 {{else}}
-  {{display-model-hasmany-relationship model=model itemRoute=itemRoute relationRoute=relationRoute relationFilter=relationFilter}}
+  {{display-model-hasmany-relationship model=model itemRoute=itemRoute relationRoute=relationRoute relationFilter=relationFilter configuredLabel=configuredLabel}}
 {{/if}}

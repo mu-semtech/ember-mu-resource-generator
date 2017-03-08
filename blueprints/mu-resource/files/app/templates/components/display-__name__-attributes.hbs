@@ -6,10 +6,11 @@
 		<dd class="properties__data">{{component value.valueComponent content=value.content}}</dd>
 	{{/if}}
 	{{/each-in}}
- {{#each-in rels as |name value|}}
- {{#if value}}
-    <dt class="properties__label">{{t name}}</dt>
-    {{display-model-relationship model=value.promise kind=value.kind itemRoute=value.itemRoute relationRoute=value.itemListRoute relationFilter=value.itemListFilter}}
-	{{/if}}
-	{{/each-in}}
+   <%=
+    relationships.map( function(relationship) {
+      return "" +
+			  '<dt class="properties__label">{{t \'' +  relationship.itemVar + '\'}}</dt>' +
+				"\n" + '{{display-model-relationship model=model.' + relationship.itemVar + ' kind=\''+ relationship.kind + '\' itemRoute=\'' + relationship.itemRoute  + '\' relationRoute=\'' + relationship.itemListRoute + '\' relationFilterKey=\'' + entityName + '\' relationFilterValue=model.id configuredLabel=\'id\'}}';
+    } ).join("\n")
+    %>	
 </dl>

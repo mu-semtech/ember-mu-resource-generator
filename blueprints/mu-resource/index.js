@@ -14,6 +14,16 @@ var entityToVariable = function(entityName) {
   ).join("");
 }
 
+var entityItemRoute = function(name) {
+		var pluralName = Inflector.pluralize(name);
+		return pluralName + ".show";
+}
+
+var entityItemListRoute = function(name) {
+		var pluralName = Inflector.pluralize(name);
+		return pluralName + ".index";
+}
+
 var entityPathVariable = function(entityName) {
   return entityName.replace(/-/g,"_");
 }
@@ -30,7 +40,14 @@ module.exports = {
       // childVar is the name of the variable which you should use
       //   if you want to name the relationship or property as a
       //   variable.
-      base = { name: key, kind: entityConfig[key], itemVar: entityToVariable(key), itemVarSingle: Inflector.singularize(entityToVariable(key)) }
+		var base = {
+						name: key,
+						kind: entityConfig[key],
+						itemVar: entityToVariable(key),
+    				itemVarSingle: Inflector.singularize(entityToVariable(key)),
+						itemRoute: entityItemRoute(key),
+						itemListRoute: entityItemListRoute(key)
+				};
       return base;
     } );
 			var attributes = properties.filter( function(prop) {

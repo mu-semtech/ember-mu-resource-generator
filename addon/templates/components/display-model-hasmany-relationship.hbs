@@ -2,9 +2,9 @@
   loading...
 {{else}}
 {{#each (await model) as |resource|}}
-  {{#link-to itemRoute resource class="link--icon--caret"}}{{resource.id}}{{/link-to}}
+  {{#link-to itemRoute resource class="link--icon--caret"}}{{get resource configuredLabel}}{{/link-to}}
 {{/each}}
 	{{#if model}}
-	 	<a href="" {{action 'filterRelation'}}>&gt; {{t 'more'}}</a>
+	<button {{action 'filterRelation'}}>&gt; {{t 'more'}}</button>
 	{{/if}}
 {{/if}}
