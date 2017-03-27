@@ -1,16 +1,18 @@
 <div class="properties__title">Gegevens</div>
 <dl>
- {{#each-in props as |name value|}}
+ <%= attributes.map( function(property) {
+    return "" +
+    '  <dt class="properties__label">{{t ' + property.itemVar + '}}</dt>' + "\n" +
+		'  <dd class="properties__data">{{gr-display-field model=model field=\'' + property.itemVar +'\' }}</dd>';
+}).join("\n") %>
  {{#if value}}
-    <dt class="properties__label">{{t name}}</dt>
-		<dd class="properties__data">{{component value.valueComponent content=value.content}}</dd>
 	{{/if}}
 	{{/each-in}}
    <%=
     relationships.map( function(relationship) {
       return "" +
-			  '<dt class="properties__label">{{t \'' +  relationship.itemVar + '\'}}</dt>' +
-				"\n" + '{{display-model-relationship model=model.' + relationship.itemVar + ' kind=\''+ relationship.kind + '\' itemRoute=\'' + relationship.itemRoute  + '\' relationRoute=\'' + relationship.itemListRoute + '\' relationFilterKey=\'' + entityName + '\' relationFilterValue=model.id configuredLabel=\'id\'}}';
+			  '  <dt class="properties__label">{{t \'' +  relationship.itemVar + '\'}}</dt>' +
+				"\n" + '  {{display-model-relationship model=model.' + relationship.itemVar + ' kind=\''+ relationship.kind + '\' itemRoute=\'' + relationship.itemRoute  + '\' relationRoute=\'' + relationship.itemListRoute + '\' relationFilterKey=\'' + entityName + '\' relationFilterValue=model.id configuredLabel=\'id\'}}';
     } ).join("\n")
     %>	
 </dl>

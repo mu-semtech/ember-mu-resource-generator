@@ -1,1 +1,0 @@
-export { default } from 'ember-mu-resource-generator/components/display-model-attributes';
