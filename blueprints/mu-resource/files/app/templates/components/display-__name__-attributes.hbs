@@ -2,7 +2,7 @@
 <dl>
  <%= attributes.map( function(property) {
     return "" +
-    '  <dt class="properties__label">{{t ' + property.itemVar + '}}</dt>' + "\n" +
+    '  <dt class="properties__label">{{t \'' + property.itemVar + '\'}}</dt>' + "\n" +
 		'  <dd class="properties__data">{{gr-display-field model=model field=\'' + property.itemVar +'\' }}</dd>';
 }).join("\n") %>
    <%=
