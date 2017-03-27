@@ -5,9 +5,6 @@
     '  <dt class="properties__label">{{t ' + property.itemVar + '}}</dt>' + "\n" +
 		'  <dd class="properties__data">{{gr-display-field model=model field=\'' + property.itemVar +'\' }}</dd>';
 }).join("\n") %>
- {{#if value}}
-	{{/if}}
-	{{/each-in}}
    <%=
     relationships.map( function(relationship) {
       return "" +
